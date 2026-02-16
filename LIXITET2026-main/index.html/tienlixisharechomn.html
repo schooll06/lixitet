@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Box Tết 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .login-screen {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .login-screen.active {
+            display: block;
+        }
+
+        .login-screen h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #c0392b;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .main-content {
+            display: none;
+            padding: 40px;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        .user-info {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .user-name {
+            font-size: 1.2em;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .user-role {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .user-role.admin {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .wish-section {
+            margin-bottom: 30px;
+        }
+
+        .wish-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .wish-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .char-count.warning {
+            color: #e74c3c;
+        }
+
+        .char-count.success {
+            color: #27ae60;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .wish-preview {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .wish-preview.active {
+            display: block;
+        }
+
+        .wish-preview h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .wish-preview p {
+            color: #34495e;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .lucky-boxes {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .lucky-boxes.active {
+            display: block;
+        }
+
+        .lucky-boxes h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .boxes-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .box {
+            width: 120px;
+            height: 120px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+        .box.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .box-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .box.flipped .box-inner {
+            transform: rotateY(180deg);
+        }
+
+        .box-front, .box-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .box-front {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .box-front i {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .box-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .box-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .box-back {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .prize-amount {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .prize-label {
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .camera-button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .camera-button:hover {
+            transform: scale(1.05);
+        }
+
+        .prize-info {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .prize-info.active {
+            display: block;
+        }
+
+        .prize-info h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .info-section h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .info-section p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 5px 0;
+        }
+
+        .message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+        }
+
+        .admin-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            min-width: 250px;
+            z-index: 1000;
+        }
+
+        .admin-toggle {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .admin-content {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .admin-content h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .admin-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .admin-stat strong {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                max-width: 100%;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .box {
+                width: 100px;
+                height: 100px;
+            }
+
+            .admin-panel {
+                top: 10px;
+                right: 10px;
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🧧 LUCKY BOX TẾT 🧧</h1>
+            <p>Chào mừng năm mới! Gửi lời chúc Tết ý nghĩa để mở hộp may mắn và nhận lì xì!</p>
+        </header>
+
+        <div class="login-screen active" id="loginScreen">
+            <h2>🎊 Đăng Nhập Tham Gia 🎊</h2>
+            <input type="text" id="userName" class="login-input" placeholder="Nhập họ và tên của bạn" maxlength="50">
+            <button class="login-btn" onclick="loginUser()">
+                <i class="fas fa-sign-in-alt"></i> Tham Gia Ngay
+            </button>
+        </div>
+
+        <div class="main-content" id="mainContent">
+            <div class="user-info">
+                <div class="user-name" id="currentUserName"></div>
+                <div class="user-role" id="userRole"></div>
+            </div>
+
+            <div class="wish-section">
+                <h3>📝 Lời Chúc Tết Của Bạn</h3>
+                <textarea id="wishInput" class="wish-input" placeholder="Hãy viết lời chúc Tết thật ý nghĩa (ít nhất 20 ký tự)..." maxlength="500"></textarea>
+                <div id="charCount" class="char-count">0/20 ký tự</div>
+                <button id="submitWish" class="submit-btn" disabled>
+                    <i class="fas fa-paper-plane"></i> Gửi Lời Chúc
+                </button>
+            </div>
+
+            <div class="wish-preview" id="wishPreview">
+                <h4>💝 Lời Chúc Của Bạn:</h4>
+                <p id="wishText"></p>
+            </div>
+
+            <div class="lucky-boxes" id="luckyBoxes">
+                <h3>🎁 Chọn Một Hộp May Mắn 🎁</h3>
+                <div class="boxes-container" id="boxesContainer">
+                    <!-- Các hộp sẽ được tạo bằng JavaScript -->
+                </div>
+            </div>
+
+            <div class="prize-info" id="prizeInfo">
+                <h2>📸 Chụp Màn Hình Gửi Cho Admin</h2>
+                <div class="info-card" id="infoCard">
+                    <!-- Thông tin sẽ được tạo bằng JavaScript -->
+                </div>
+            </div>
+
+            <div class="message" id="message"></div>
+        </div>
+    </div>
+
+    <div class="admin-panel" id="adminPanel" style="display: none;">
+        <button class="admin-toggle" id="adminToggle">
+            <i class="fas fa-cog"></i> Admin Panel
+        </button>
+        <div class="admin-content" id="adminContent">
+            <h4>📊 Thống Kê</h4>
+            <div class="admin-stat">
+                <span>Tổng người dùng:</span>
+                <strong id="totalUsers">0</strong>
+            </div>
+            <div class="admin-stat">
+                <span>Tổng lời chúc:</span>
+                <strong id="totalWishes">0</strong>
+            </div>
+            <div class="admin-stat">
+                <span>Hộp đã mở:</span>
+                <strong id="boxesOpened">0</strong>
+            </div>
+            <div class="admin-stat">
+                <span>Tổng tiền:</span>
+                <strong id="totalMoney">0 VND</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu các bao lì xì
+        const prizes = [
+            { amount: "20.000", label: "Hai mươi nghìn đồng", value: 20000 },
+            { amount: "50.000", label: "Năm mươi nghìn đồng", value: 50000 },
+            { amount: "30.000", label: "Ba mươi nghìn đồng", value: 30000 },
+            { amount: "40.000", label: "Bốn mươi nghìn đồng", value: 40000 },
+
+        ];
+
+        // Màu sắc cho các hộp
+        const boxColors = ["#FF6B6B", "#4ECDC4", "#FFD166", "#9B59B6", "#3498DB"];
+
+        // Tên admin
+        const ADMIN_NAMES = ["Trần Văn Trường", "Trần Văn Trường", "Văn Trường", "Trường Trần"];
+
+        // Trạng thái ứng dụng
+        let selectedBox = null;
+        let hasOpenedBox = false;
+        let openedBoxIndex = null;
+        let currentUser = null;
+        let userIP = null;
+        let userWish = "";
+        let wishSubmitted = false;
+        let isAdmin = false;
+        let randomizedPrizes = [];
+
+        // Dữ liệu lưu trữ
+        let allUsers = [];
+        let allWishes = [];
+        let participatedUsers = [];
+
+        // DOM elements
+        const loginScreen = document.getElementById('loginScreen');
+        const mainContent = document.getElementById('mainContent');
+        const currentUserName = document.getElementById('currentUserName');
+        const userRole = document.getElementById('userRole');
+        const wishInput = document.getElementById('wishInput');
+        const charCount = document.getElementById('charCount');
+        const submitWishBtn = document.getElementById('submitWish');
+        const wishPreview = document.getElementById('wishPreview');
+        const wishText = document.getElementById('wishText');
+        const luckyBoxes = document.getElementById('luckyBoxes');
+        const boxesContainer = document.getElementById('boxesContainer');
+        const prizeInfo = document.getElementById('prizeInfo');
+        const infoCard = document.getElementById('infoCard');
+        const message = document.getElementById('message');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminToggle = document.getElementById('adminToggle');
+        const adminContent = document.getElementById('adminContent');
+
+        // Hàm lấy IP (giả lập)
+        function getUserIP() {
+            const savedIP = localStorage.getItem('userIP');
+            if (savedIP) return savedIP;
+            
+            const fakeIP = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+            localStorage.setItem('userIP', fakeIP);
+            return fakeIP;
+        }
+
+        // Random vị trí các bao lì xì
+        function randomizePrizes() {
+            randomizedPrizes = [...prizes];
+            
+            // Trộn ngẫu nhiên
+            for (let i = randomizedPrizes.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [randomizedPrizes[i], randomizedPrizes[j]] = [randomizedPrizes[j], randomizedPrizes[i]];
+            }
+        }
+
+        // Kiểm tra xem user đã tham gia chưa (theo IP)
+        function checkIfUserAlreadyParticipated() {
+            userIP = getUserIP();
+            return participatedUsers.find(user => user.ip === userIP);
+        }
+
+        // Kiểm tra tên admin
+        function checkIfAdmin(userName) {
+            const normalizedUserName = userName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            return ADMIN_NAMES.some(adminName => {
+                const normalizedAdminName = adminName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                return normalizedUserName.includes(normalizedAdminName) || 
+                       normalizedAdminName.includes(normalizedUserName);
+            });
+        }
+
+        // Khởi tạo trang web
+        function initializeApp() {
+            userIP = getUserIP();
+            const existingUser = checkIfUserAlreadyParticipated();
+            
+            if (existingUser) {
+                showAlreadyParticipatedScreen(existingUser);
+            } else {
+                loginScreen.classList.add('active');
+            }
+            
+            randomizePrizes();
+            
+            // Sự kiện cho admin toggle
+            adminToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                adminContent.classList.toggle('active');
+            });
+            
+            // Đóng admin panel khi click ra ngoài
+            document.addEventListener('click', function() {
+                adminContent.classList.remove('active');
+            });
+        }
+
+        // Hiển thị màn hình đã tham gia
+        function showAlreadyParticipatedScreen(userData) {
+            loginScreen.classList.remove('active');
+            mainContent.classList.add('active');
+            currentUserName.textContent = userData.name;
+            
+            // Hiển thị thông báo đã tham gia
+            message.innerHTML = `<i class="fas fa-check-circle"></i> Bạn đã tham gia và nhận được <strong>${userData.prize}</strong>. Mỗi người chỉ được tham gia 1 lần!`;
+            message.style.color = "#27ae60";
+            message.style.background = "#d4edda";
+            message.style.padding = "15px";
+            message.style.borderRadius = "10px";
+        }
+
+        // Đăng nhập user
+        function loginUser() {
+            const userName = document.getElementById('userName').value.trim();
+            
+            if (!userName) {
+                alert("Vui lòng nhập họ và tên!");
+                return;
+            }
+            
+            // Kiểm tra nếu là admin
+            if (checkIfAdmin(userName)) {
+                isAdmin = true;
+                adminPanel.style.display = 'block';
+                userRole.textContent = "ADMIN";
+                userRole.classList.add('admin');
+            }
+            
+            // Lưu user
+            currentUser = {
+                name: userName,
+                ip: userIP,
+                time: new Date().toISOString(),
+                isAdmin: isAdmin
+            };
+            
+            allUsers.push(currentUser);
+            localStorage.setItem('tetLuckyBox_users', JSON.stringify(allUsers));
+            
+            // Chuyển đến màn hình chính
+            loginScreen.classList.remove('active');
+            mainContent.classList.add('active');
+            currentUserName.textContent = userName;
+            
+            // Theo dõi số ký tự lời chúc
+            wishInput.addEventListener('input', function() {
+                const length = this.value.length;
+                charCount.textContent = `${length}/20 ký tự`;
+                
+                if (length < 20) {
+                    charCount.className = 'char-count warning';
+                    submitWishBtn.disabled = true;
+                } else {
+                    charCount.className = 'char-count success';
+                    submitWishBtn.disabled = false;
+                }
+            });
+            
+            // Cập nhật admin panel nếu là admin
+            if (isAdmin) {
+                updateAdminPanel();
+            }
+        }
+
+        // Xử lý gửi lời chúc
+        function submitWish() {
+            userWish = wishInput.value.trim();
+            
+            if (userWish.length < 20) {
+                message.textContent = "Lời chúc phải có ít nhất 20 ký tự!";
+                message.style.color = "#e74c3c";
+                return;
+            }
+            
+            wishSubmitted = true;
+            
+            // Lưu lời chúc
+            const wishData = {
+                userName: currentUser.name,
+                userIP: userIP,
+                wish: userWish,
+                time: new Date().toISOString()
+            };
+            
+            allWishes.push(wishData);
+            localStorage.setItem('tetLuckyBox_wishes', JSON.stringify(allWishes));
+            
+            // Hiển thị lời chúc
+            wishText.textContent = userWish;
+            wishPreview.classList.add('active');
+            
+            // Vô hiệu hóa phần nhập lời chúc
+            wishInput.disabled = true;
+            submitWishBtn.disabled = true;
+            submitWishBtn.innerHTML = '<i class="fas fa-check"></i> Đã gửi lời chúc';
+            
+            // Hiển thị các hộp may mắn
+            luckyBoxes.classList.add('active');
+            message.textContent = "Lời chúc của bạn thật ý nghĩa! Bây giờ hãy chọn MỘT hộp may mắn để mở.";
+            message.style.color = "#27ae60";
+            
+            // Khởi tạo các hộp với vị trí random
+            initializeBoxes();
+            
+            // Cập nhật admin panel nếu là admin
+            if (isAdmin) {
+                updateAdminPanel();
+            }
+        }
+
+        // Gán hàm submitWish cho button
+        document.getElementById('submitWish').onclick = submitWish;
+
+        // Khởi tạo các hộp với prizes đã random
+        function initializeBoxes() {
+            boxesContainer.innerHTML = '';
+            
+            randomizedPrizes.forEach((prize, index) => {
+                const boxElement = document.createElement('div');
+                boxElement.className = 'box';
+                boxElement.id = `box-${index}`;
+                
+                boxElement.innerHTML = `
+                    <div class="box-inner">
+                        <div class="box-front">
+                            <i class="fas fa-gift"></i>
+                            <div class="box-number">${index + 1}</div>
+                            <div class="box-label">Hộp may mắn</div>
+                        </div>
+                        <div class="box-back" style="background: linear-gradient(145deg, ${boxColors[index]}, ${darkenColor(boxColors[index], 20)});">
+                            <div class="prize-amount">${prize.amount} VND</div>
+                            <div class="prize-label">${prize.label}</div>
+                            <button class="camera-button" onclick="showPrizeInfo(${index})">
+                                <i class="fas fa-camera"></i> Chụp màn hình
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                boxElement.addEventListener('click', () => openBox(index));
+                boxesContainer.appendChild(boxElement);
+            });
+        }
+
+        // Mở hộp
+        function openBox(index) {
+            if (!wishSubmitted) {
+                message.textContent = "Vui lòng gửi lời chúc trước khi mở hộp!";
+                message.style.color = "#e74c3c";
+                return;
+            }
+            
+            if (hasOpenedBox) {
+                message.textContent = "Bạn đã mở hộp rồi! Mỗi người chỉ được mở MỘT hộp.";
+                message.style.color = "#e74c3c";
+                return;
+            }
+            
+            const boxElement = document.getElementById(`box-${index}`);
+            boxElement.classList.add('flipped');
+            
+            // Lưu thông tin user đã mở hộp
+            const selectedPrize = randomizedPrizes[index];
+            currentUser.prize = selectedPrize.amount + " VND";
+            currentUser.prizeValue = selectedPrize.value;
+            currentUser.boxOpenedTime = new Date().toISOString();
+            
+            // Lưu vào danh sách đã tham gia
+            participatedUsers.push({
+                ip: userIP,
+                name: currentUser.name,
+                prize: currentUser.prize,
+                time: currentUser.boxOpenedTime
+            });
+            localStorage.setItem('participatedUsers', JSON.stringify(participatedUsers));
+            
+            // Cập nhật trạng thái
+            hasOpenedBox = true;
+            openedBoxIndex = index;
+            selectedBox = selectedPrize;
+            
+            // Hiển thị thông báo
+            message.innerHTML = `<i class="fas fa-gift"></i> Chúc mừng! Bạn đã nhận được <strong>${selectedPrize.label}</strong>. Nhấn nút "Chụp màn hình" để nhận tiền.`;
+            message.style.color = "#27ae60";
+            
+            // Tạo hiệu ứng pháo hoa
+            createFireworks();
+            
+            // Vô hiệu hóa các hộp khác
+            for (let i = 0; i < randomizedPrizes.length; i++) {
+                if (i !== index) {
+                    const otherBox = document.getElementById(`box-${i}`);
+                    otherBox.classList.add('disabled');
+                    otherBox.replaceWith(otherBox.cloneNode(true));
+                }
+            }
+            
+            // Cập nhật admin panel nếu là admin
+            if (isAdmin) {
+                updateAdminPanel();
+            }
+        }
+
+        // Hiển thị thông tin để chụp màn hình
+        function showPrizeInfo(index) {
+            if (!wishSubmitted) {
+                alert("Vui lòng gửi lời chúc trước khi xem thông tin!");
+                return;
+            }
+            
+            if (openedBoxIndex !== index) {
+                alert("Bạn chưa mở hộp này! Vui lòng mở hộp trước khi xem thông tin.");
+                return;
+            }
+            
+            // Tạo nội dung thông tin rõ ràng để chụp màn hình
+            const infoContent = `
+                <h3>🧧 LỜI CHÚC TẾT 2026 🧧</h3>
+                
+                <div class="info-section">
+                    <h4>👤 Người nhận:</h4>
+                    <p>${currentUser.name}</p>
+                </div>
+                
+                <div class="info-section">
+                    <h4>💰 Số tiền nhận:</h4>
+                    <p>${randomizedPrizes[index].amount} VND</p>
+                </div>
+                
+                                
+                <div class="info-section">
+                    <h4>⏰ Hạn sử dụng:</h4>
+                    <p>24 giờ</p>
+                </div>
+                
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #e74c3c;">
+                    <p style="font-size: 14px; color: #6c757d;">📱 Vui lòng chụp màn hình này</p>
+                    <p style="font-size: 14px; color: #6c757d;">🔥 Gửi cho Admin: Trần Văn Trường</p>
+                </div>
+            `;
+            
+            infoCard.innerHTML = infoContent;
+            
+            // Hiển thị section thông tin
+            prizeInfo.classList.add('active');
+            prizeInfo.scrollIntoView({ behavior: 'smooth' });
+            
+            // Thông báo cho người dùng
+            setTimeout(() => {
+                alert("📸 Vui lòng chụp màn hình thông tin này và gửi cho Admin Trần Văn Trường để nhận tiền!");
+            }, 500);
+        }
+
+        // Cập nhật admin panel
+        function updateAdminPanel() {
+            const totalUsers = allUsers.length;
+            const totalWishes = allWishes.length;
+            const boxesOpened = participatedUsers.length;
+            
+            let totalMoney = 0;
+            participatedUsers.forEach(user => {
+                if (user.prize) {
+                    const amount = parseInt(user.prize.replace(/[^0-9]/g, ''));
+                    if (!isNaN(amount)) {
+                        totalMoney += amount;
+                    }
+                }
+            });
+            
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalWishes').textContent = totalWishes;
+            document.getElementById('boxesOpened').textContent = boxesOpened;
+            document.getElementById('totalMoney').textContent = totalMoney.toLocaleString('vi-VN') + ' VND';
+        }
+
+        // Tạo hiệu ứng pháo hoa
+        function createFireworks() {
+            const colors = ['#e74c3c', '#f1c40f', '#2ecc71', '#3498db', '#9b59b6'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const size = Math.random() * 10 + 5;
+                    
+                    firework.style.left = `${x}px`;
+                    firework.style.top = `${y}px`;
+                    firework.style.width = `${size}px`;
+                    firework.style.height = `${size}px`;
+                    firework.style.backgroundColor = color;
+                    firework.style.boxShadow = `0 0 10px ${color}`;
+                    
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }, i * 50);
+            }
+        }
+
+        // Hàm làm tối màu
+        function darkenColor(color, percent) {
+            const num = parseInt(color.replace("#", ""), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = (num >> 16) - amt;
+            const G = (num >> 8 & 0x00FF) - amt;
+            const B = (num & 0x0000FF) - amt;
+            
+            return "#" + (
+                0x1000000 +
+                (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                (B < 255 ? (B < 1 ? 0 : B) : 255)
+            ).toString(16).slice(1);
+        }
+
+        // Khởi tạo trang web khi load
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
