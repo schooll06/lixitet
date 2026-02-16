@@ -484,6 +484,9 @@
             <button class="login-btn" onclick="loginUser()">
                 <i class="fas fa-sign-in-alt"></i> Tham Gia Ngay
             </button>
+            <button class="login-btn" onclick="clearCache()" style="background: #e74c3c; margin-top: 10px;">
+                <i class="fas fa-trash"></i> Xóa Cache (Test)
+            </button>
         </div>
 
         <div class="main-content" id="mainContent">
@@ -638,10 +641,29 @@
             });
         }
 
+        // Xóa cache để test lại
+        function clearCache() {
+            if (confirm("Bạn có chắc muốn xóa toàn bộ dữ liệu và bắt đầu lại không?")) {
+                localStorage.removeItem('tetLuckyBox_users');
+                localStorage.removeItem('tetLuckyBox_wishes');
+                localStorage.removeItem('participatedUsers');
+                localStorage.removeItem('userIP');
+                location.reload();
+            }
+        }
+
         // Khởi tạo trang web
         function initializeApp() {
+            // Load dữ liệu từ localStorage trước
+            allUsers = JSON.parse(localStorage.getItem('tetLuckyBox_users')) || [];
+            allWishes = JSON.parse(localStorage.getItem('tetLuckyBox_wishes')) || [];
+            participatedUsers = JSON.parse(localStorage.getItem('participatedUsers')) || [];
+            
             userIP = getUserIP();
             const existingUser = checkIfUserAlreadyParticipated();
+            
+            console.log("🔍 Check existing user:", existingUser);
+            console.log("👥 Total participated:", participatedUsers.length);
             
             if (existingUser) {
                 showAlreadyParticipatedScreen(existingUser);
