@@ -484,9 +484,6 @@
             <button class="login-btn" onclick="loginUser()">
                 <i class="fas fa-sign-in-alt"></i> Tham Gia Ngay
             </button>
-            <button class="login-btn" onclick="clearCache()" style="background: #e74c3c; margin-top: 10px;">
-                <i class="fas fa-trash"></i> Xóa Cache (Test)
-            </button>
         </div>
 
         <div class="main-content" id="mainContent">
@@ -639,17 +636,6 @@
                 return normalizedUserName.includes(normalizedAdminName) || 
                        normalizedAdminName.includes(normalizedUserName);
             });
-        }
-
-        // Xóa cache để test lại
-        function clearCache() {
-            if (confirm("Bạn có chắc muốn xóa toàn bộ dữ liệu và bắt đầu lại không?")) {
-                localStorage.removeItem('tetLuckyBox_users');
-                localStorage.removeItem('tetLuckyBox_wishes');
-                localStorage.removeItem('participatedUsers');
-                localStorage.removeItem('userIP');
-                location.reload();
-            }
         }
 
         // Khởi tạo trang web
